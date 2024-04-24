@@ -23,8 +23,9 @@ app.layout = html.Div([
     dcc.Dropdown(
         id='crime-type-dropdown',
         options=[{'label': i, 'value': i} for i in csv_data['Crime type'].unique()],
-        value='All Crimes',
-        clearable=False
+        value=['All Crimes'],  # Default value as a list
+        multi=True,  # Allow multiple selections
+        clearable=True
     ),
     dcc.Graph(id='crime-map')
 ])
@@ -34,11 +35,11 @@ app.layout = html.Div([
     Output('crime-map', 'figure'),
     [Input('crime-type-dropdown', 'value')]
 )
-def update_map(crime_type):
-    if crime_type == 'All Crimes':
+def update_map(crime_types):
+    if not crime_types or 'All Crimes' in crime_types:
         df_filtered = csv_data
     else:
-        df_filtered = csv_data[csv_data['Crime type'] == crime_type]
+        df_filtered = csv_data[csv_data['Crime type'].isin(crime_types)]
     
     # Aggregate data
     crime_counts = df_filtered['LSOA code'].value_counts().reset_index()
