@@ -44,7 +44,10 @@ def update_map(crime_types):
     # Aggregate data
     crime_counts = df_filtered['LSOA code'].value_counts().reset_index()
     crime_counts.columns = ['LSOA11CD', 'Crime Count']
-    merged_gdf = gdf.merge(crime_counts, on='LSOA11CD', how='left').fillna(0)
+    merged_gdf = gdf.merge(crime_counts, on='LSOA11CD', how='left')
+    
+    # Handle zero crime counts by filling NaNs with 0
+    merged_gdf['Crime Count'] = merged_gdf['Crime Count'].fillna(0)
     
     # Update hover text
     merged_gdf['hover_text'] = 'Borough: ' + merged_gdf['LAD11NM'] + '<br>Crime Count: ' + merged_gdf['Crime Count'].astype(str)
@@ -53,9 +56,10 @@ def update_map(crime_types):
     fig = go.Figure(go.Choroplethmapbox(geojson=geojson,
                                         locations=merged_gdf.index,
                                         z=merged_gdf['Crime Count'],
-                                        colorscale="Viridis",
+                                        colorscale="Plasma",
                                         marker_line_width=0.5,
-                                        text=merged_gdf['hover_text']))
+                                        text=merged_gdf['hover_text'],
+                                        zmin=1))  # This ensures zero count areas are not colored
     
     fig.update_layout(mapbox_style="carto-darkmatter",
                       height=600,
