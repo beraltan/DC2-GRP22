@@ -1,7 +1,6 @@
 import requests
 import os
 import zipfile
-
 import pandas as pd
 
 
@@ -46,9 +45,8 @@ download_and_unzip(url,"data/primary_data")
 
 
 
-import os
-import requests
-import pandas as pd
+
+
 
 def download_and_convert_excel_to_csv(url, output_dir, output_filename):
     try:
@@ -94,9 +92,43 @@ def download_and_convert_excel_to_csv(url, output_dir, output_filename):
 url = "https://data.london.gov.uk/download/earnings-place-residence-borough/1686ef1c-b169-442d-8877-e7e49788f668/earnings-residence-borough.xlsx"
 
 # Call the function with the specified parameters
-download_and_convert_excel_to_csv(url, "data/secondary_data", "earnings_residence_borough")
+download_and_convert_excel_to_csv(url, "data/secondary_data/income_by_region", "earnings_residence_borough")
 
 
-url = "https://policeuk-data.s3.amazonaws.com/download/d14653c3a332b4238b9a419afe4a66d8bee6541e.zip"
-download_and_unzip(url, "data")
+
+def download_and_unzip(url, output_dir):
+    """
+    Downloads a ZIP file from a given URL and extracts its contents to a specified directory.
+
+    Args:
+    url (str): The URL of the ZIP file.
+    output_dir (str): Directory to extract the contents of the ZIP file. Defaults to the current directory.
+
+    Returns:
+    None
+    """
+    
+    
+    os.makedirs(output_dir, exist_ok=True)
+    # Get the filename from the URL
+    filename = url.split('/')[-1]
+
+    # Download the file
+    response = requests.get(url)
+    if response.status_code == 200:
+        zip_path = os.path.join(output_dir, filename)
+        with open(zip_path, 'wb') as file:
+            file.write(response.content)
+        
+        # Unzip the file
+        with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+            zip_ref.extractall(output_dir)
+        
+        print(f"File downloaded and extracted in: {output_dir}")
+    else:
+        print("Failed to download the file")
+
+# Usage example:
+download_and_unzip("https://data.london.gov.uk/download/statistical-gis-boundary-files-london/9ba8c833-6370-4b11-abdc-314aa020d5e0/statistical-gis-boundaries-london.zip",'data/secondary_data/map')
+
 
