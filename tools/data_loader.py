@@ -90,9 +90,10 @@ def download_and_convert_excel_to_csv(url, output_dir, output_filename):
 
 # URL of the Excel file
 url = "https://data.london.gov.uk/download/earnings-place-residence-borough/1686ef1c-b169-442d-8877-e7e49788f668/earnings-residence-borough.xlsx"
-
+url2  = 'https://data.london.gov.uk/download/lsoa-atlas/b8e01c3a-f5e3-4417-82b3-02ad271e6ee8/lsoa-data.xls'
 # Call the function with the specified parameters
 download_and_convert_excel_to_csv(url, "data/secondary_data/income_by_region", "earnings_residence_borough")
+download_and_convert_excel_to_csv(url2, "data/secondary_data/lsoa_data", "lsoa_data")
 
 
 

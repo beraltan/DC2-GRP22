@@ -35,14 +35,14 @@ app.layout = html.Div([
     )
 ])
 
-# Callback to update the map and the data table based on dropdown selection and lasso selection
+# Callback to update the map and the data table based on dropdown selection and map click
 @app.callback(
     [Output('crime-map', 'figure'),
      Output('crime-data-table', 'data')],
     [Input('crime-type-dropdown', 'value'),
-     Input('crime-map', 'selectedData')]
+     Input('crime-map', 'clickData')]
 )
-def update_map_and_table(crime_types, selectedData):
+def update_map_and_table(crime_types, clickData):
     if not crime_types or 'All Crimes' in crime_types:
         df_filtered = csv_data
     else:
@@ -69,11 +69,11 @@ def update_map_and_table(crime_types, selectedData):
                       height=600,
                       mapbox=dict(center=dict(lat=51.5074, lon=-0.1278), zoom=10))
     
-    # Data table update based on lasso selection
-    if selectedData and 'points' in selectedData:
-        selected_indices = [point['pointIndex'] for point in selectedData['points']]
-        selected_lsoa = merged_gdf.iloc[selected_indices]['LSOA11CD'].tolist()
-        table_data = csv_data[csv_data['LSOA code'].isin(selected_lsoa)].to_dict('records')
+    # Data table update based on map click
+    if clickData:
+        clicked_index = clickData['points'][0]['pointIndex']
+        selected_lsoa = merged_gdf.iloc[clicked_index]['LSOA11CD']
+        table_data = csv_data[csv_data['LSOA code'] == selected_lsoa].to_dict('records')
     else:
         table_data = []
 
