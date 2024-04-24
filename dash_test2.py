@@ -1,5 +1,5 @@
 import dash
-from dash import dcc, html
+from dash import dcc, html, dash_table
 from dash.dependencies import Input, Output
 import plotly.graph_objects as go
 import pandas as pd
@@ -27,15 +27,22 @@ app.layout = html.Div([
         multi=True,  # Allow multiple selections
         clearable=True
     ),
-    dcc.Graph(id='crime-map')
+    dcc.Graph(id='crime-map', config={'modeBarButtonsToAdd': ['drawrect', 'drawclosedpath', 'eraseshape']}),
+    dash_table.DataTable(
+        id='crime-data-table',
+        columns=[{"name": i, "id": i} for i in csv_data.columns],
+        data=[]
+    )
 ])
 
-# Callback to update the map based on dropdown selection
+# Callback to update the map and the data table based on dropdown selection and map click
 @app.callback(
-    Output('crime-map', 'figure'),
-    [Input('crime-type-dropdown', 'value')]
+    [Output('crime-map', 'figure'),
+     Output('crime-data-table', 'data')],
+    [Input('crime-type-dropdown', 'value'),
+     Input('crime-map', 'clickData')]
 )
-def update_map(crime_types):
+def update_map_and_table(crime_types, clickData):
     if not crime_types or 'All Crimes' in crime_types:
         df_filtered = csv_data
     else:
@@ -44,10 +51,7 @@ def update_map(crime_types):
     # Aggregate data
     crime_counts = df_filtered['LSOA code'].value_counts().reset_index()
     crime_counts.columns = ['LSOA11CD', 'Crime Count']
-    merged_gdf = gdf.merge(crime_counts, on='LSOA11CD', how='left')
-    
-    # Handle zero crime counts by filling NaNs with 0
-    merged_gdf['Crime Count'] = merged_gdf['Crime Count'].fillna(0)
+    merged_gdf = gdf.merge(crime_counts, on='LSOA11CD', how='left').fillna(0)
     
     # Update hover text
     merged_gdf['hover_text'] = 'Borough: ' + merged_gdf['LAD11NM'] + '<br>Crime Count: ' + merged_gdf['Crime Count'].astype(str)
@@ -65,7 +69,15 @@ def update_map(crime_types):
                       height=600,
                       mapbox=dict(center=dict(lat=51.5074, lon=-0.1278), zoom=10))
     
-    return fig
+    # Data table update based on map click
+    if clickData:
+        clicked_index = clickData['points'][0]['pointIndex']
+        selected_lsoa = merged_gdf.iloc[clicked_index]['LSOA11CD']
+        table_data = csv_data[csv_data['LSOA code'] == selected_lsoa].to_dict('records')
+    else:
+        table_data = []
+
+    return fig, table_data
 
 # Run the server
 if __name__ == '__main__':
