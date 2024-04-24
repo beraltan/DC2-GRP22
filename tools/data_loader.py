@@ -1,7 +1,9 @@
 import requests
 import os
 import zipfile
+
 import pandas as pd
+
 
 def download_and_unzip(url, relative_path):
     # Navigate to the parent directory of the current script
@@ -35,6 +37,7 @@ def download_and_unzip(url, relative_path):
     print("Zip file removed.")
 
 # Usage
+
 
 url ="https://policeuk-data.s3.amazonaws.com/download/6cf8efbca9e6d7b14f23f0cb6e84afd30fe35fde.zip"
 # url = "https://policeuk-data.s3.amazonaws.com/download/d14653c3a332b4238b9a419afe4a66d8bee6541e.zip"
@@ -92,4 +95,8 @@ url = "https://data.london.gov.uk/download/earnings-place-residence-borough/1686
 
 # Call the function with the specified parameters
 download_and_convert_excel_to_csv(url, "data/secondary_data", "earnings_residence_borough")
+
+
+url = "https://policeuk-data.s3.amazonaws.com/download/d14653c3a332b4238b9a419afe4a66d8bee6541e.zip"
+download_and_unzip(url, "data")
 
