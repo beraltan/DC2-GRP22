@@ -96,6 +96,33 @@ download_and_convert_excel_to_csv(url, "data/secondary_data/income_by_region", "
 download_and_convert_excel_to_csv(url2, "data/secondary_data/lsoa_data", "lsoa_data")
 
 
+def convert_xlsx_to_csvs(xlsx_path, output_dir):
+    # Load the XLSX file
+    xlsx = pd.ExcelFile(xlsx_path)
+
+    # Check if the output directory exists, if not create it
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+
+    # Iterate through each sheet in the XLSX file
+    for sheet_name in xlsx.sheet_names:
+        # Read the sheet into a DataFrame
+        df = xlsx.parse(sheet_name)
+
+        # Define the CSV file path
+        csv_file_path = os.path.join(output_dir, f"{sheet_name}.csv")
+
+        # Save the DataFrame to CSV
+        df.to_csv(csv_file_path, index=False)
+        print(f"Saved {sheet_name} to {csv_file_path}")
+
+# Usage
+xlsx_path = 'https://data.london.gov.uk/download/mopac-surveys/c3db2a0c-70f5-4b73-916b-2b0fcd9decc0/PAS_T%26Cdashboard_to%20Q3%2023-24.xlsx'
+output_dir = 'data/secondary_data/pas_data'
+convert_xlsx_to_csvs(xlsx_path, output_dir)
+
+
+
 
 def download_and_unzip(url, output_dir):
     """
