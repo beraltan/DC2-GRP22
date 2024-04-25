@@ -51,6 +51,56 @@ lsoa_to_borough_mapping()
 
 
 
+def add_borough_column(base_dir, file_patterns, lookup_table_path):
+    # Load the lookup table from the provided CSV file
+    borough_lookup = pd.read_csv(lookup_table_path)
+
+    # Define potential LSOA column names to check for in the files
+    lsoa_col_variants = ['LSOA code', 'LSOA_code']
+
+    # Walk through the directory structure
+    for root, _, files in os.walk(base_dir):
+        for file in files:
+            # Check if the file matches any of the patterns
+            for pattern in file_patterns:
+                if pattern in file:
+                    # Read the CSV file
+                    file_path = os.path.join(root, file)
+                    data = pd.read_csv(file_path)
+
+                    # Find the correct LSOA column name
+                    lsoa_col = next((col for col in lsoa_col_variants if col in data.columns), None)
+
+                    # If a matching LSOA column name is found
+                    if lsoa_col:
+                        # Merge the 'Borough' data using the found LSOA column name
+                        data_with_borough = pd.merge(data, borough_lookup, left_on=lsoa_col, right_on='LSOA_code', how='left')
+
+                        # Ensure the 'Borough' column is right next to the LSOA column
+                        borough_index = data_with_borough.columns.tolist().index('Borough')
+                        lsoa_index = data_with_borough.columns.tolist().index(lsoa_col)
+                        # Reorder columns to place 'Borough' next to the LSOA code
+                        columns = data_with_borough.columns.tolist()
+                        columns.insert(lsoa_index + 1, columns.pop(borough_index))
+                        data_with_borough = data_with_borough[columns]
+
+                        # Save the updated DataFrame back to the file
+                        data_with_borough.to_csv(file_path, index=False)
+                        print(f'Updated file: {file_path}')
+                        
+# Base directory path
+base_dir = './data/primary_data'
+lookup_table_path = './data/lookup_tables/lsoa2borough.csv'
+
+# List of unique patterns to match files for updating
+file_patterns = [
+    'metropolitan-stop-and-search', 'city-of-london-street', 'btp-street', 
+    'metropolitan-street', 'city-of-london-stop-and-search', 'metropolitan-outcomes', 
+    'city-of-london-outcomes', 'btp-stop-and-search'
+]
+
+# Call the function with the base directory, list of file patterns, and path to the lookup table
+add_borough_column(base_dir, file_patterns, lookup_table_path)
 
 
 def concatenate_csv_files(base_dir, file_patterns):
