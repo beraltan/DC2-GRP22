@@ -53,7 +53,7 @@ lsoa_to_borough_mapping()
 
 def add_borough_column(base_dir, file_patterns, lookup_table_path):
     # Load the lookup table from the provided CSV file
-    borough_lookup = pd.read_csv(lookup_table_path)
+    borough_lookup = pd.read_csv(lookup_table_path, low_memory=False)
 
     # Define potential LSOA column names to check for in the files
     lsoa_col_variants = ['LSOA code', 'LSOA_code']
@@ -77,11 +77,11 @@ def add_borough_column(base_dir, file_patterns, lookup_table_path):
                         data_with_borough = pd.merge(data, borough_lookup, left_on=lsoa_col, right_on='LSOA_code', how='left')
 
                         # Ensure the 'Borough' column is right next to the LSOA column
-                        borough_index = data_with_borough.columns.tolist().index('Borough')
+                        
                         lsoa_index = data_with_borough.columns.tolist().index(lsoa_col)
                         # Reorder columns to place 'Borough' next to the LSOA code
                         columns = data_with_borough.columns.tolist()
-                        columns.insert(lsoa_index + 1, columns.pop(borough_index))
+                        
                         data_with_borough = data_with_borough[columns]
 
                         # Save the updated DataFrame back to the file
@@ -141,4 +141,4 @@ file_patterns = [
 ]
 
 # Call the function with the base directory and the list of file patterns
-# concatenate_csv_files(base_dir, file_patterns)
+concatenate_csv_files(base_dir, file_patterns)
