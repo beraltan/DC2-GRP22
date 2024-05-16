@@ -122,6 +122,11 @@ output_dir = 'data/secondary_data/pas_data'
 convert_xlsx_to_csvs(xlsx_path, output_dir)
 
 
+xlsx_path = 'https://data.london.gov.uk/download/use-of-force/3b237b91-350d-4b65-a96a-a4de78843eac/MPS%20Use%20of%20Force%20-%20FY24-25.xlsx'
+output_dir = 'data/secondary_data/use_of_force'
+convert_xlsx_to_csvs(xlsx_path, output_dir)
+
+
 
 
 def download_and_unzip(url, output_dir):
