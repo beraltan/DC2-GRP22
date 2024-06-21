@@ -38,7 +38,7 @@ def download_and_unzip(url, relative_path):
 # Usage
 
 
-url ="https://policeuk-data.s3.amazonaws.com/download/6cf8efbca9e6d7b14f23f0cb6e84afd30fe35fde.zip"
+url ="https://policeuk-data.s3.amazonaws.com/download/bc01a9eeaca07ca2a833387849b7cab7e2ee06fa.zip"
 # url = "https://policeuk-data.s3.amazonaws.com/download/d14653c3a332b4238b9a419afe4a66d8bee6541e.zip"
 download_and_unzip(url,"data/primary_data")
 
@@ -91,9 +91,11 @@ def download_and_convert_excel_to_csv(url, output_dir, output_filename):
 # URL of the Excel file
 url = "https://data.london.gov.uk/download/earnings-place-residence-borough/1686ef1c-b169-442d-8877-e7e49788f668/earnings-residence-borough.xlsx"
 url2  = 'https://data.london.gov.uk/download/lsoa-atlas/b8e01c3a-f5e3-4417-82b3-02ad271e6ee8/lsoa-data.xls'
+
 # Call the function with the specified parameters
 download_and_convert_excel_to_csv(url, "data/secondary_data/income_by_region", "earnings_residence_borough")
 download_and_convert_excel_to_csv(url2, "data/secondary_data/lsoa_data", "lsoa_data")
+
 
 
 def convert_xlsx_to_csvs(xlsx_path, output_dir):
@@ -163,5 +165,32 @@ def download_and_unzip(url, output_dir):
 
 # Usage example:
 download_and_unzip("https://data.london.gov.uk/download/statistical-gis-boundary-files-london/9ba8c833-6370-4b11-abdc-314aa020d5e0/statistical-gis-boundaries-london.zip",'data/secondary_data/map')
+
+
+#download and save csv
+def download_and_save_csv(url, output_dir, output_filename):
+    """
+    Downloads a CSV file from a given URL and saves it to a specified directory.
+
+    Args:
+    url (str): The URL of the CSV file.
+    output_dir (str): Directory to save the CSV file.
+    output_filename (str): Name of the output CSV file.
+
+    Returns:
+    None
+    """
+    os.makedirs(output_dir, exist_ok=True)
+    csv_path = os.path.join(output_dir, output_filename + ".csv")
+    response = requests.get(url)
+    if response.status_code == 200:
+        with open(csv_path, 'wb') as file:
+            file.write(response.content)
+        print(f"CSV file saved in: {csv_path}")
+    else:
+        print("Failed to download the CSV file")
+        
+        
+download_and_save_csv('https://data.london.gov.uk/download/benefits-analysis/fd8e06be-6546-4c4e-ab0e-f265ea161d94/People_UC_Borough.csv','data/secondary_data/benefits','People_UC_Borough')
 
 
