@@ -27,4 +27,4 @@ average_outcomes_per_year = merged_df.groupby(['Borough', 'Year'])[yes_no_column
 print(average_outcomes_per_year)
 
 # Save the result to a CSV file if needed
-average_outcomes_per_year.to_csv('average_outcomes_per_yearNEW.csv', index=False)
+average_outcomes_per_year.to_csv('data/output_files/average_outcomes_per_yearNEW.csv', index=False)

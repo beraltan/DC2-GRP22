@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Load the existing CSV file with aggregated data
-aggregated_file_path = 'aggregated_data_OutcomeCount_AvgScore.csv'
+aggregated_file_path = 'data/output_files/aggregated_data_OutcomeCount_AvgScore.csv'
 aggregated_df = pd.read_csv(aggregated_file_path)
 
 # Coefficients from the updated regression model
