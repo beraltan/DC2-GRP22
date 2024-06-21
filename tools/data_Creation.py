@@ -1,4 +1,19 @@
 import pandas as pd
+import os
+
+
+
+
+# Create output_files directory if it doesn't exist
+output_dir = 'data/output_files'
+os.makedirs(output_dir, exist_ok=True)
+
+output_dir = 'data/output_files/output_pngs'
+os.makedirs(output_dir, exist_ok=True)
+
+
+
+
 
 gran = pd.read_excel('data/secondary_data/pas_data/PAS_T%26Cdashboard_to%20Q3%2023-24.xlsx', sheet_name='Borough')
 gran = gran.drop(columns=['Unnamed: 9', 'Unnamed: 6', 'Unnamed: 7', 'Unnamed: 8', 'Survey'])
