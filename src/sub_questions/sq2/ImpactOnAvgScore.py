@@ -23,6 +23,6 @@ aggregated_df['Total_Impact'] = aggregated_df[[f'Impact_{outcome}' for outcome i
 print(aggregated_df[['Borough'] + [f'Impact_{outcome}' for outcome in coefficients.keys()] + ['Total_Impact']])
 
 # Save the result to a new CSV file
-output_file_path = 'Final_Impact_of_Outcomes'
+output_file_path = 'data/output_files/Final_Impact_of_Outcomes.csv'
 aggregated_df.to_csv(output_file_path, index=False)
 print(f"Results exported to {output_file_path}")

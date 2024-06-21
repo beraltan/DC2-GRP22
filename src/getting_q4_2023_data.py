@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
-uof1 = pd.read_excel('MPS Use of Force - FY24-25.xlsx')
-uof2 = pd.read_excel('MPS Use of Force - FY23-24.xlsx')
+uof1 = pd.read_excel('data/secondary_data/use_of_forceMPS Use of Force - FY24-25.xlsx')
+uof2 = pd.read_excel('data/secondary_data/use_of_forceMPS Use of Force - FY23-24.xlsx')
 uof = pd.concat([uof1, uof2], ignore_index=True)
 uof = uof[(uof['IncidentDate'] >= '2024-01-01') & (uof['IncidentDate'] < '2024-04-01')]
 
@@ -70,4 +70,4 @@ temp.drop_duplicates(inplace=True)
 temp = temp.reset_index()
 temp = temp.drop(columns=['index'])
 
-temp.to_csv('predict.csv', index=False)
+temp.to_csv('data/output_files/predict.csv', index=False)

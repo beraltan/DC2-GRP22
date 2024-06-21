@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 # Load the data
-file_path = 'BoroughTrustNumOfCaseNEW.csv'
+file_path = 'data/output_files/BoroughTrustNumOfCaseNEW.csv'
 data = pd.read_csv(file_path)
 
 # Convert the 'Date' column to datetime format
@@ -28,5 +28,5 @@ plt.legend()
 plt.tight_layout()
 
 # Save and show the plot
-plt.savefig("total_use_of_force_cases_per_survey_date.png")
+plt.savefig("data/output_files/output_pngs/total_use_of_force_cases_per_survey_date.png")
 plt.show()

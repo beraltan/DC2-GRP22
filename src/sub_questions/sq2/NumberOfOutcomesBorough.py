@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Load the merged data with all columns
-merged_file_path = r'C:\Users\danie\PycharmProjects\DC2\qwe\final_everything.csv'
+merged_file_path = 'data/output_files/final_everything.csv'
 
 merged_df = pd.read_csv(merged_file_path, low_memory=False)
 

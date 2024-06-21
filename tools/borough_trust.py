@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Load the merged data
-merged_file_path = '../qwe/final_everything.csv'
+merged_file_path = 'data/output_files/final_everything.csv'
 merged_df = pd.read_csv(merged_file_path, low_memory=False)
 
 # Ensure the date columns are in datetime format
@@ -16,7 +16,7 @@ trust_scores = merged_df[['Borough', 'Date', 'Average Score']].drop_duplicates()
 combined_df = pd.merge(uof_counts, trust_scores, on=['Borough', 'Date'])
 
 # Export the combined data to a CSV file
-combined_df.to_csv('BoroughTrustNumOfCaseNEW.csv', index=False)
+combined_df.to_csv('data/output_files/BoroughTrustNumOfCaseNEW.csv', index=False)
 
 # # Calculate and print the correlation for each borough
 # boroughs = combined_df['Borough'].unique()
