@@ -8,8 +8,8 @@ import json
 from shapely.geometry import shape
 
 # Load the datasets
-trust_data = pd.read_csv('qwe/new_trustALL_TIME.csv')
-future_scores = pd.read_csv('qwe/futurescore2024.csv')
+trust_data = pd.read_csv('tools/new_trust.csv')
+future_scores = pd.read_csv('tools/futurescore2024.csv')
 
 # Add the missing date column to future_scores
 future_scores['Date'] = '2024-03-31'
