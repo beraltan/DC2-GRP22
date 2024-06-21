@@ -6,7 +6,7 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from sklearn import metrics
 
-uof = pd.read_csv('final_everything.csv')
+uof = pd.read_csv('data/output_files/final_everything.csv')
 
 check = ['SubjectAge']
 base = ['Borough', 'Average Score', 'Date']
@@ -125,7 +125,7 @@ print('R^2:', metrics.r2_score(y_test, y_pred))
 print('Mean Poisson Deviance:', metrics.mean_poisson_deviance(y_test, y_pred))
 print('Mean Gamma Deviance:', metrics.mean_gamma_deviance(y_test, y_pred))
 
-predict = pd.read_csv('predict.csv')
+predict = pd.read_csv('data/output_files/predict.csv')
 no_borough = predict.copy()
 no_borough = no_borough.drop(columns='Borough')
 new_predictions = forest.predict(no_borough)
@@ -136,7 +136,7 @@ df = predict[['Borough', 'Average Score']]
 df = df.sort_values(by='Average Score', ascending=False).reset_index(drop=True)
 df['Rank'] = df['Average Score'].rank(method='min', ascending=False).astype(int)
 
-trend = pd.read_csv('new_trust.csv')
+trend = pd.read_csv('data/output_files/new_trust.csv')
 trend = trend[trend['Date'] > '2023-10-31']
 trend = trend[['Average Score', 'Rank', 'Borough']]
 merged_df = pd.merge(df, trend, on=['Borough'],how='left')

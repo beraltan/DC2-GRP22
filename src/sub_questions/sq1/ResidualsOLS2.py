@@ -5,7 +5,7 @@ import numpy as np
 import statsmodels.api as sm
 
 # Load the dataset
-file_path = 'BoroughTrustNumOfCaseNEW.csv'
+file_path = 'data/output_files/BoroughTrustNumOfCaseNEW.csv'
 data = pd.read_csv(file_path)
 
 # Apply log transformation to UseOfForceCount

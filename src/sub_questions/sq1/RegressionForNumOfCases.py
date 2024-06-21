@@ -2,7 +2,7 @@ import pandas as pd
 import statsmodels.api as sm
 from statsmodels.stats.outliers_influence import variance_inflation_factor
 
-path = "BoroughTrustNumOfCaseNEW.csv"
+path = "data/output_files/BoroughTrustNumOfCaseNEW.csv"
 combined_df = pd.read_csv(path)
 merged_file_path = r"C:\Users\danie\PycharmProjects\DC2\qwe\final_everything.csv"
 merged_df = pd.read_csv(merged_file_path, low_memory=False)# Prepare the data for regression analysis

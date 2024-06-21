@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Load the CSV file into a DataFrame
-file_path = 'Final_Impact_of_Outcomes'  # Ensure your file path is correct
+file_path = 'data/output_files/Final_Impact_of_Outcomes.csv'  # Ensure your file path is correct
 data = pd.read_csv(file_path)
 
 # Calculate the mean of Total_Impact for each borough

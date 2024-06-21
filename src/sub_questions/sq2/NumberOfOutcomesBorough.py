@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Load the merged data with all columns
-merged_file_path = r'C:\Users\danie\PycharmProjects\DC2\qwe\final_everything.csv'
+merged_file_path = 'data/output_files/final_everything.csv'
 
 merged_df = pd.read_csv(merged_file_path, low_memory=False)
 
@@ -27,4 +27,4 @@ average_outcomes_per_year = merged_df.groupby(['Borough', 'Year'])[yes_no_column
 print(average_outcomes_per_year)
 
 # Save the result to a CSV file if needed
-average_outcomes_per_year.to_csv('average_outcomes_per_yearNEW.csv', index=False)
+average_outcomes_per_year.to_csv('data/output_files/average_outcomes_per_yearNEW.csv', index=False)

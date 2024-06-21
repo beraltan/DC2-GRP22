@@ -1,9 +1,7 @@
 import pandas as pd
-import statsmodels.api as sm
-from statsmodels.stats.outliers_influence import variance_inflation_factor
 
 # Load the merged data with all columns
-merged_file_path = r'C:\Users\danie\PycharmProjects\DC2\qwe\final_everything.csv'
+merged_file_path = 'data/output_files/final_everything.csv'
 merged_df = pd.read_csv(merged_file_path, low_memory=False)
 
 # Ensure the date columns are in datetime format
@@ -47,26 +45,8 @@ print(combined_df.isnull().sum())
 if combined_df.empty:
     raise ValueError("The combined_df is empty after cleaning. Check the data preprocessing steps.")
 
-# Prepare the data for regression analysis
-# Exclude 'Outcome: Made off/escaped' and 'Outcome: Fatality' as they are no longer recorded
-outcomes_to_include = [col for col in outcome_columns if col not in ['Outcome: Made off/escaped', 'Outcome: Fatality']]
-# Remove 'UseOfForceCount'
-X = combined_df[outcomes_to_include]
-y = combined_df['Average Score']
+# Export the aggregated data to CSV
+output_file_path = 'data/output_files/aggregated_data_OutcomeCount_AvgScore.csv'
+combined_df.to_csv(output_file_path, index=False)
 
-# Add a constant to the independent variables matrix
-X = sm.add_constant(X)
-
-# Fit the regression model
-model = sm.OLS(y, X).fit()
-
-# Print the regression results
-print(model.summary())
-
-# Recalculate VIF
-vif_data = pd.DataFrame()
-vif_data["Variable"] = X.columns
-vif_data["VIF"] = [variance_inflation_factor(X.values, i) for i in range(len(X.columns))]
-
-print("\nVariance Inflation Factor (VIF):")
-print(vif_data)
+print(f"Aggregated data exported to {output_file_path}")

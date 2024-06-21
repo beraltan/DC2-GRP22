@@ -3,7 +3,7 @@ import statsmodels.api as sm
 from statsmodels.stats.outliers_influence import variance_inflation_factor
 
 # Load the aggregated data
-aggregated_file_path = 'aggregated_data_OutcomeCount_AvgScore.csv'
+aggregated_file_path = 'data/output_files/aggregated_data_OutcomeCount_AvgScore.csv'
 aggregated_df = pd.read_csv(aggregated_file_path)
 
 # Prepare the data for regression analysis
