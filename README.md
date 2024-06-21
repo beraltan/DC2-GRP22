@@ -4,10 +4,30 @@
 
 This project examines the impact of the use of force on public trust and confidence in the Metropolitan Police Service (MPS) London. Using data from the Public Attitude Survey and the Use of Force dataset, the study applies various regression analyses to understand the relationships between the frequency and outcomes of use of force incidents, the subjects' age, and public perception.
 
+### Conda Environment
+
+First, create a conda environment using the provided `environment.yaml` file:
+
+conda env create -n grp22 -f environment.yaml
+
+create environment by ```conda env create =n grp22 -f environment.yaml```
+
+activate the environmnt by `conda activate grp22`
+
+Run the `data_loader.py` to obtain all the raw datasets
+
+Then run  `preprocessing.py ` `data_Creation.py` `borough_trust.py` `ExportOutcomeAvgScoreValues.py` `futuredata.ipynb` `ImpactOnAvgScore.py`in order to pre-proccess the datasets
+
+The python files are organized in folders regarding to their use case
+
+
+
+
 ## Table of Contents
 
 - [Impact of Use of Force on Public Trust and Confidence in the Metropolitan Police Service London](#impact-of-use-of-force-on-public-trust-and-confidence-in-the-metropolitan-police-service-london)
   - [Project Overview](#project-overview)
+    - [Conda Environment](#conda-environment)
   - [Table of Contents](#table-of-contents)
   - [Introduction](#introduction)
   - [Data Science Techniques](#data-science-techniques)
@@ -23,7 +43,6 @@ This project examines the impact of the use of force on public trust and confide
   - [Limitations and Future Work](#limitations-and-future-work)
   - [Conclusions and Recommendations](#conclusions-and-recommendations)
   - [Appendix](#appendix)
-    - [Conda Environment](#conda-environment)
 
 ## Introduction
 
@@ -90,17 +109,7 @@ Figures and additional details are available in the full technical report.
 This README provides a structured overview of the project, highlighting key findings and recommendations. For detailed analysis and data visualizations, please refer to the full report in the repository.
 
 
-### Conda Environment
 
-First, create a conda environment using the provided `environment.yaml` file:
-
-conda env create -n grp22 -f environment.yaml
-
-create environment by ```conda env create =n grp22 -f environment.yaml```
-
-Run the data_loader.py to obtain all the raw datasets
-
-Then run  `preprocessing.py ` `borough_trust.py` `ExportOutcomeAvgScoreValues.py` `futuredata.ipynb` `ImpactOnAvgScore.py`to pre-process the datasets
 
 
 
