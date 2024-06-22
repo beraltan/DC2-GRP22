@@ -1,18 +1,19 @@
 # Impact of Use of Force on Public Trust and Confidence in the Metropolitan Police Service London
 
 ## Steps
-1. Open the tools file and run the tool/data_creation.py to get all of the datasets. This will give you final_everything.csv
-2. For each sub question, use the final_everything.csv
-3. For sub question one, get the BoroughTrustNumOfCaseNEW.csv by running the tools/borough_trust.py
-4. Once you have this file, all of the scripts under src/sub_questions/sq1 will be available to run the data through. These py files here include the visualizations and OLS model for sq1
-5. For sub question 2, run the following py scripts to get the data needed for the codes refrenced: src/sub_questions/sq2/ExportOutcomeAvgScoreValues.py, src/sub_questions/sq2/NumberOfOutcomesBorough.py
-6. Using the aggregated file created in ExportOutcomeAvgScoreValues.py u can run tools/ImpactOnAvgScore.py to get the final outcomes dataset needed for the visualizations
-7. For subquestion 3 do the following: run src/sub_questions/sq3/OLS_subquestion3.py to get the OLS regression results for age groups
+1. In the folder tools run the data_loader.py to get all the datasets required.
+2. Open the tools file and run the tool/data_creation.py to get all of the datasets preprocessed. This will give you final_everything.csv
+3. For each sub question, use the final_everything.csv
+4. For sub question one, get the BoroughTrustNumOfCaseNEW.csv by running the tools/borough_trust.py
+5. Once you have this file, all of the scripts under src/sub_questions/sq1 will be available to run the data through. These py files here include the visualizations and OLS model for sq1
+6. For sub question 2, run the following py scripts to get the data needed for the codes refrenced: src/sub_questions/sq2/ExportOutcomeAvgScoreValues.py, src/sub_questions/sq2/NumberOfOutcomesBorough.py
+7. Using the aggregated file created in ExportOutcomeAvgScoreValues.py u can run tools/ImpactOnAvgScore.py to get the final outcomes dataset needed for the visualizations
+8. For subquestion 3 do the following: run src/sub_questions/sq3/OLS_subquestion3.py to get the OLS regression results for age groups
 run src/sub_questions/getting_q4_2023_data.py to get the trust and confidence scores for the last quarter of 2023
 run src/sub_questions/randomforest.py to run the forecasting model and output the predicted scores for the first quarter of 2024
-8. For the dashboard three datasets are needed. These are new_trustALL_TIME.csv is -> (use: new_trust.csv this is provided when u run tool/data_creation.py) , futurescore2024.csv. Download the london_boroughs.geojson from this link: https://martinjc.github.io/UK-GeoJSON/
-9. Use the datasets mentionaed above to run Dashboard/Predicted_Scores_Map.py
-10. Then finally run Dashboard/Read.py to get the link to the dashboard
+9. For the dashboard three datasets are needed. These are new_trustALL_TIME.csv is -> (use: new_trust.csv this is provided when u run tool/data_creation.py) , futurescore2024.csv. Download the london_boroughs.geojson from this link: https://martinjc.github.io/UK-GeoJSON/
+10. Use the datasets mentionaed above to run Dashboard/Predicted_Scores_Map.py
+11. Then finally run Dashboard/Read.py to get the link to the dashboard
 
 
 
@@ -42,6 +43,7 @@ The python files are organized in folders regarding to their use case
 ## Table of Contents
 
 - [Impact of Use of Force on Public Trust and Confidence in the Metropolitan Police Service London](#impact-of-use-of-force-on-public-trust-and-confidence-in-the-metropolitan-police-service-london)
+  - [Steps](#steps)
   - [Project Overview](#project-overview)
     - [Conda Environment](#conda-environment)
   - [Table of Contents](#table-of-contents)
